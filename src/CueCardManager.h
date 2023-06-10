@@ -4,7 +4,6 @@
 #include "CueCardCollection.h"
 
 #include <stdexcept>
-#include <memory>
 
 class NoCardsLeft : public std::exception { };
 class StillCardsLeft : public std::exception { };

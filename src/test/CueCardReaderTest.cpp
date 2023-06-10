@@ -33,6 +33,4 @@ TEST_CASE("Cue cards can be read from text files", "[reading]") {
             FileNotFound
         );
     }
-
-    int i = 4;
 }
