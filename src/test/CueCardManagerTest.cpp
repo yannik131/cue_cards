@@ -4,8 +4,6 @@
 #include "../CueCard.h"
 #include "../CueCardReader.h"
 
-#include <iostream>
-
 TEST_CASE("Working with cue cards", "[learning]") {
     CueCardReader reader;
     CueCardCollection cueCardCollection = reader.getCueCardsFromFile("./resources/cards.txt");

@@ -10,6 +10,7 @@
 class UnevenNumberOfLines : public std::runtime_error { using std::runtime_error::runtime_error; };
 class FileNotFound : public std::runtime_error { using std::runtime_error::runtime_error; };
 class FileEmpty : public std::runtime_error { using std::runtime_error::runtime_error; };
+class EmptyLineEncountered  : public std::runtime_error { using std::runtime_error::runtime_error; };
 
 
 class CueCardReader

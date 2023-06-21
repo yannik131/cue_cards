@@ -5,8 +5,8 @@
 
 #include <stdexcept>
 
-class NoCardsLeft : public std::exception { };
-class StillCardsLeft : public std::exception { };
+class NoCardsLeft : public std::runtime_error { using std::runtime_error::runtime_error; };
+class StillCardsLeft : public std::runtime_error { using std::runtime_error::runtime_error; };
 
 class CueCardManager {
 private:

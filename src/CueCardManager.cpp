@@ -15,7 +15,7 @@ void CueCardManager::fillCurrentCards() {
 
 void CueCardManager::shuffleCards() {
     if(mCurrentCards.empty()) {
-        throw NoCardsLeft();
+        throw NoCardsLeft("Shuffle not possible: No cards left");
     }
 
     std::random_shuffle(mCurrentCards.begin(), mCurrentCards.end());
@@ -35,7 +35,7 @@ const std::vector<const CueCard*> CueCardManager::getIncorrectCards() const {
 
 void CueCardManager::studentKnewTheCard() {
     if(mCurrentCards.empty()) {
-        throw NoCardsLeft();
+        throw NoCardsLeft("Knew: No cards left");
     }
 
     mCorrectCards.push_back(mCurrentCards.back());
@@ -44,7 +44,7 @@ void CueCardManager::studentKnewTheCard() {
 
 void CueCardManager::studentDidntKnowTheCard() {
     if(mCurrentCards.empty()) {
-        throw NoCardsLeft();
+        throw NoCardsLeft("Didnt know: No cards left");
     }
 
     mIncorrectCards.push_back(mCurrentCards.back());
@@ -53,11 +53,11 @@ void CueCardManager::studentDidntKnowTheCard() {
 
 void CueCardManager::continueWithIncorrectCards() {
     if(!mCurrentCards.empty()) {
-        throw StillCardsLeft();
+        throw StillCardsLeft("Can't continue: There are cards left");
     }
 
     if(mIncorrectCards.empty()) {
-        throw NoCardsLeft();
+        throw NoCardsLeft("Can't continue: No cards left");
     }
 
     mIncorrectCards.swap(mCurrentCards);

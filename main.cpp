@@ -1,11 +1,6 @@
 #include <wx/wx.h>
 #include <filesystem>
 #include <vector>
-#include <memory>
-#include <stdexcept>
-
-#include "CueCardReader.h"
-#include "CueCardManager.h"
 
 std::vector<std::string> getTxtFilesInExecutionFolder() {
     std::vector<std::string> txtFiles;
@@ -42,7 +37,6 @@ private:
     void OnListBoxDoubleClick(wxCommandEvent& event);
 
     wxListBox* listBox;
-    std::unique_ptr<CueCardManager> cueCardManager;
     wxDECLARE_EVENT_TABLE();
 };
 
@@ -51,9 +45,9 @@ enum {
     Test_About = wxID_ABOUT
 };
 
-class CueCardPanel : public wxPanel {
+class CueCard : public wxPanel {
 public:
-    CueCardPanel(wxWindow *parent, const std::string& label) : wxPanel(parent) {
+    CueCard(wxWindow *parent, const std::string& label) : wxPanel(parent) {
         wxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
         SetSizer(sizer);
         text = new wxTextCtrl(this, wxID_ANY, label, wxDefaultPosition, 
@@ -128,7 +122,7 @@ void MyFrame::CreateMiddlePanel() {
     buttonsPanel->SetSizer(buttonSizer);
     buttonSizer->Add(new wxButton(buttonsPanel, wxID_ANY, "Knew that"), 1, wxEXPAND | wxALL, 20);
     buttonSizer->Add(new wxButton(buttonsPanel, wxID_ANY, "Didn't know that"), 1, wxEXPAND | wxALL, 20);
-    panelSizer->Add(new CueCardPanel(middlePanel, "Cue card"), 2, wxEXPAND | wxALL, 20);
+    panelSizer->Add(new CueCard(middlePanel, "Cue card"), 2, wxEXPAND | wxALL, 20);
     panelSizer->Add(buttonsPanel, 1, wxEXPAND | wxALL, 20);
     GetSizer()->Add(middlePanel, 1, wxEXPAND | wxALL, 20);
 }
@@ -137,8 +131,8 @@ void MyFrame::CreateRightPanel() {
     wxPanel* rightPanel = new wxPanel(this, wxID_ANY);
     wxSizer* rightSizer = new wxBoxSizer(wxVERTICAL);
     rightPanel->SetSizer(rightSizer);
-    CueCardPanel* topCard = new CueCardPanel(rightPanel, "Correct card asdf sad fads fads fads fadsf asdf dsf");
-    CueCardPanel* bottomCard = new CueCardPanel(rightPanel, "Incorrect card");
+    CueCard* topCard = new CueCard(rightPanel, "Correct card asdf sad fads fads fads fadsf asdf dsf");
+    CueCard* bottomCard = new CueCard(rightPanel, "Incorrect card");
     rightSizer->Add(topCard, 1, wxEXPAND | wxALL, 10);
     rightSizer->Add(bottomCard, 1, wxEXPAND | wxALL, 10);
     GetSizer()->Add(rightPanel, 1, wxEXPAND | wxALL, 20);
@@ -147,17 +141,10 @@ void MyFrame::CreateRightPanel() {
 
 void MyFrame::OnListBoxDoubleClick(wxCommandEvent& event) {
     int selectedIdx = event.GetSelection();
-    std::string selectedText = event.GetString().ToStdString();
-    std::string path = std::filesystem::current_path().append(selectedText+".txt");
-    
-    CueCardReader reader;
-    try {
-        CueCardCollection cueCardCollection = reader.getCueCardsFromFile(path);
-        this->cueCardManager.reset(new CueCardManager(cueCardCollection));
-    }
-    catch(const std::exception& exc) {
-        wxMessageBox(wxString::Format(exc.what()), "Exception");
-    }
+    wxString selectedText = event.GetString();
+
+    // Execute your callback code here
+    wxMessageBox(wxString::Format("Double-clicked: %s", selectedText), "Double-Click");
 }
 
 void MyFrame::OnQuit(wxCommandEvent& WXUNUSED(event)) {
