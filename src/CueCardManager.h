@@ -12,6 +12,8 @@ class CueCardManager {
 private:
     const CueCardCollection mCardCollection;
 
+    //The last entry is the most current card.
+    //A std::stack was not used because shuffling stacks is not supported.
     std::vector<const CueCard*> mCurrentCards;
     std::vector<const CueCard*> mCorrectCards;
     std::vector<const CueCard*> mIncorrectCards;

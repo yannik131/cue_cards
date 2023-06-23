@@ -14,9 +14,11 @@ if(wxWidgets_USE_FILE)
 endif()
 
 add_library(cue_cards_l CueCard.cpp CueCardCollection.cpp CueCardReader.cpp CueCardManager.cpp)
+add_library(gui App.cpp CueCardPanel.cpp MainFrame.cpp)
+target_link_libraries(gui ${wxWidgets_LIBRARIES} cue_cards_l)
 
 add_executable(cue_cards main.cpp)
-target_link_libraries(cue_cards ${wxWidgets_LIBRARIES} cue_cards_l)
+target_link_libraries(cue_cards cue_cards_l gui)
 
 set(CMAKE_CXX_LINK_EXECUTABLE "${CMAKE_CXX_LINK_EXECUTABLE} -lpng -lz -ljpeg -lfltk_gl -lGLU -lGL -lfltk -lXrender -lXfixes -lXext -lXft -lfontconfig -lpthread -ldl -lm -lX11")
 

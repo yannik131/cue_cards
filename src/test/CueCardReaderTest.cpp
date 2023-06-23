@@ -11,6 +11,8 @@ TEST_CASE("Cue cards can be read from text files", "[reading]") {
 
         REQUIRE( cards.mCueCards.size() == 2 );
         REQUIRE( cards.mTitle == "cards" );
+        REQUIRE( cards.mCueCards[1].mFrontText == "Phonon");
+        REQUIRE( cards.mCueCards[1].mBackText == "Häufige Ber");
     }
 
     SECTION("Uneven number of lines throws Exception") {
