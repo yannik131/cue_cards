@@ -40,12 +40,12 @@ void MainFrame::CreateMenu() {
     wxMenu* fileMenu = new wxMenu();
     wxMenu* helpMenu = new wxMenu();
 
-    fileMenu->Append(Test_Quit, "&Exit\tAlt-X", "Weg mit der Scheiße!");
-    helpMenu->Append(Test_About, L"&Über\tF1", "Was ist das für ne Scheiße?");
+    fileMenu->Append(Test_Quit, "&Exit\tAlt-X", "Exit");
+    helpMenu->Append(Test_About, L"&About\tF1", "About");
 
     wxMenuBar* menuBar = new wxMenuBar();
-    menuBar->Append(fileMenu, "&Datei");
-    menuBar->Append(helpMenu, "&Hilfe");
+    menuBar->Append(fileMenu, "&File");
+    menuBar->Append(helpMenu, "&Help");
     SetMenuBar(menuBar);
 }
 
@@ -137,11 +137,14 @@ void MainFrame::OnQuit(wxCommandEvent& WXUNUSED(event)) {
 void MainFrame::OnAbout(wxCommandEvent& WXUNUSED(event)) {
         wxMessageBox(wxString::Format(
             "Using %s.\n"
-            "OS %s.",
+            "OS: %s.\n"
+            "This small cue cards application was written by Yannik Schroeder in 2023.\n"
+            "Since an application like this can easily be created by an AI nowadays, "
+            "this is barely worth mentioning. But who cares, it was fun anyways.",
             wxVERSION_STRING,
             wxGetOsDescription()
         ), 
-        "Gib mir die scheiß Infos!",
+        "About",
         wxOK | wxICON_INFORMATION,
         this
     );
